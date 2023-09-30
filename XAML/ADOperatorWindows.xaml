@@ -1,0 +1,108 @@
+﻿<Window x:Class="ad-opr-gui.AdOprGui"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ad-opr-gui"
+        mc:Ignorable="d"
+        Title="Active Directory Create User GUI v1.0 Alpha" Height="720" Width="1300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- sn + givenName = displayName -->
+
+        <Label Grid.Column="0" Grid.Row="0" Margin="5">Фамилия [sn]:</Label>
+        <TextBox x:Name="SurnameTxt" Grid.Column="1" Grid.Row="0" Margin="5"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="1" Margin="5">Имя [givenName]:</Label>
+        <TextBox x:Name="GivenNameTxt" Grid.Column="1" Grid.Row="1" Margin="5"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="2" Margin="5">Выводимое имя [displayName]:</Label>
+        <TextBox x:Name="DisplayNameTxt" IsEnabled="False" Grid.Column="1" Grid.Row="2" Margin="5"></TextBox>
+
+        <!-- sAMAccountName + password -->
+
+        <Label Grid.Column="2" Grid.Row="0" Margin="5">Логин [sAMAccountName]:</Label>
+        <TextBox x:Name="SamAccountNameTxt" Grid.Column="3" Grid.Row="0" Margin="5"></TextBox>
+
+        <Label Grid.Column="2" Grid.Row="1" Margin="5">Пароль [password]:</Label>
+        <TextBox x:Name="PasswordTxt" Grid.Column="3" Grid.Row="1" Margin="5"></TextBox>
+
+        <Button x:Name="SetLoginNameBtn" Grid.Column="3" Grid.Row="2" Margin="5">Сформировать логин</Button>
+
+        <!-- -->
+
+        <Label Grid.Column="0" Grid.Row="4" Margin="5">Компания [company]</Label>
+        <TextBox x:Name="CompanyTxt" Grid.Column="1" Grid.Row="4" Margin="5"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="5" Margin="5">Отдел [department]</Label>
+        <TextBox x:Name="DepartmentTxt" Grid.Column="1" Grid.Row="5" Margin="5"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="6" Margin="5">Должность [title]</Label>
+        <TextBox x:Name="TitleTxt" Grid.Column="1" Grid.Row="6" Margin="5"></TextBox>
+    
+        <Label Grid.Column="0" Grid.Row="7" Margin="5">Email [mail]</Label>
+        <TextBox x:Name="MailTxt" Grid.Column="1" Grid.Row="7" Margin="5"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="8" Margin="5">Телефон [telephoneNumber]</Label>
+        <TextBox x:Name="TelephoneNumberTxt" Grid.Column="1" Grid.Row="8" Margin="5"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="9" Margin="5">Описание [description]</Label>
+        <TextBox x:Name="DescriptionTxt" Grid.Column="1" Grid.Row="9" Margin="5"></TextBox>
+
+        <!-- -->
+
+        <Label Grid.Column="2" Grid.Row="4" Margin="5">Страна [co]</Label>
+        <TextBox x:Name="CoTxt" Grid.Column="3" Grid.Row="4" Margin="5"></TextBox>
+
+        <Label Grid.Column="2" Grid.Row="5" Margin="5">Область [st]</Label>
+        <TextBox x:Name="StTxt" Grid.Column="3" Grid.Row="5" Margin="5"></TextBox>
+
+        <Label Grid.Column="2" Grid.Row="6" Margin="5">Город [l]:</Label>
+        <TextBox x:Name="LocationTxt" Grid.Column="3" Grid.Row="6" Margin="5"></TextBox>
+
+        <Label Grid.Column="2" Grid.Row="7" Margin="5">Комната [physicalDeliveryOfficeName]</Label>
+        <TextBox x:Name="PhysicalDeliveryOfficeNameTxt" Grid.Column="3" Grid.Row="7" Margin="5"></TextBox>
+
+        <!-- -->
+
+        <Label Grid.Column="0" Grid.Row="11" Margin="5">Сайт (не нужен):</Label>
+        <ComboBox IsEnabled="False" Grid.Column="1" Grid.Row="11" Margin="5"></ComboBox>
+
+        <Label Grid.Column="0" Grid.Row="12" Margin="5">Ролевая группа:</Label>
+        <ComboBox x:Name="RolesCmb" Grid.Column="1" Grid.Row="12" Margin="5"></ComboBox>
+
+        <Label Grid.Column="2" Grid.Row="11" Margin="5">Тип учетной записи:</Label>
+        <ComboBox x:Name="TypeAccCbm" Grid.Column="3" Grid.Row="11" Margin="5"></ComboBox>
+
+        <Label Grid.Column="2" Grid.Row="12" Margin="5">Руководитель [manager]:</Label>
+        <ComboBox x:Name="ManagersCmb" Grid.Column="3" Grid.Row="12" Margin="5"></ComboBox>
+
+        <!-- -->
+
+        <Button x:Name="PreCreateBtn" Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2" Margin="5">Предварителньй просмотр</Button>
+        <Button x:Name="CreateBtn" Grid.Column="2" Grid.Row="14" Grid.ColumnSpan="2" Margin="5">Создать</Button>
+    </Grid>
+</Window>
