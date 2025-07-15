@@ -2,7 +2,6 @@
 
 > Вся инфра Майков строиться вокруг AD. Обьекты наполняют ее. Если не учесть этого Ваш домен будет просто поделкой.
 
-> Вся инфра Майков строиться вокруг AD. Обьекты наполняют ее.
 GUI in WPF (XAML) in Visual Studio 2022 (Blend)
 
 "PowerShell Presentation Framework" for Executing WPF from <https://github.com/theznerd/PoSHPF>  
