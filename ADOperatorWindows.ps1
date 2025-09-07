@@ -237,22 +237,34 @@ function Start-BackgroundScriptBlock($scriptBlock) {
 ## WIRE UP YOUR CONTROLS
 ########################
 
-function LoadComboBoxAGGroup ($adGroup) {
-    $formADOperatorWindowsControlManagersCmb.Items.Clear()
-    $MgrArray = Get-ADGroupMember -Identity $adGroup | 
-    Select-Object Name
-    ForEach ($item in $MgrArray) {
-        $formADOperatorWindowsControlManagersCmb.Items.Add($item.Name)
+function PopulateComboBox {
+    param(
+        $ComboBox,
+        [scriptblock]$QueryScript
+    )
+
+    $ComboBox.Items.Clear()
+    $items = & $QueryScript
+    foreach ($item in $items) {
+        $ComboBox.Items.Add($item.Name)
     }
 }
 
+function LoadComboBoxAGGroup ($adGroup) {
+    PopulateComboBox $formADOperatorWindowsControlManagersCmb { Get-ADGroupMember -Identity $adGroup | Select-Object Name }
+}
+
 function LoadComboBoxOU ($adOU) {
-    $formADOperatorWindowsControlRolesCmb.Items.Clear()
-    $MgrArray = Get-ADGroup -Filter * -SearchBase $adOU | 
-    Select-Object Name
-    ForEach ($item in $MgrArray) {
-        $formADOperatorWindowsControlRolesCmb.Items.Add($item.Name)
-    }
+    PopulateComboBox $formADOperatorWindowsControlRolesCmb { Get-ADGroup -Filter * -SearchBase $adOU | Select-Object Name }
+}
+
+# Mapping of roles to default field values
+$RoleConfig = @{
+    'Администратор' = @{ Department = 'ИТ'; Title = 'Администратор' }
+    'Консультант'  = @{ Department = 'Консалтинг'; Title = 'Консультант' }
+    'Подрядчик'    = @{ Department = 'Подряд'; Title = 'Подрядчик' }
+    'Сотрудник'    = @{ Department = 'Сотрудники'; Title = 'Сотрудник' }
+    'Аудитор'      = @{ Department = 'Аудит'; Title = 'Аудитор' }
 }
 
 function ViewADUser {
@@ -360,14 +372,25 @@ $formADOperatorWindowsControlSurnameTxt.Add_TextChanged({
         SetDisplayName
     })
 
+$formADOperatorWindowsControlRolesCmb.Add_SelectionChanged({
+        $selectedRole = $formADOperatorWindowsControlRolesCmb.SelectedItem
+        if ($RoleConfig.ContainsKey($selectedRole)) {
+            $config = $RoleConfig[$selectedRole]
+            if ($config.Department) {
+                $formADOperatorWindowsControlDepartmentTxt.Text = $config.Department
+            }
+            if ($config.Title) {
+                $formADOperatorWindowsControlTitleTxt.Text = $config.Title
+            }
+        }
+    })
+
 ############################
 ###### DISPLAY DIALOG ######
 ############################
 
-$formADOperatorWindows.Add_ContentRendered({ 
-        # Передалать функцию (чтобы могла заполнить любой комбобокс)
+$formADOperatorWindows.Add_ContentRendered({
         LoadComboBoxAGGroup "PosDirector"
-        # Переделать функцию (чтобы могла заполнить любой комбобокс)
         LoadComboBoxOU "OU=User,OU=Roles,OU=Groups,OU=Assn,DC=rsvet,DC=ru"
 
         # Типы пользователей
